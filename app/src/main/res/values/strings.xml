@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TP-LINK Manager</string>
+    <string name="set_host">Set Host</string>
+    <string name="login">Login</string>
+    <string name="account">Account</string>
+    <string name="password">Password</string>
+    <string name="auto_login">Auto Login</string>
+</resources>
