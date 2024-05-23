@@ -1,8 +1,10 @@
 package com.example.tplink.manager.ui.login
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -11,13 +13,13 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.tplink.manager.R
 import com.example.tplink.manager.databinding.FragmentLoginBinding
-import com.example.tplink.manager.logic.state.LoginState
+import com.example.tplink.manager.logic.state.LoadingState
 import com.example.tplink.manager.ui.base.BaseFragment
 import com.example.tplink.manager.ui.main.MainActivity
-import com.example.tplink.manager.ui.main.MainViewModel
 import com.example.tplink.manager.util.PrefManager
 import com.example.tplink.manager.util.makeToast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -25,7 +27,7 @@ import kotlinx.coroutines.launch
  */
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
-    private val viewModel by viewModels<MainViewModel>(
+    private val viewModel by viewModels<LoginViewModel>(
         ownerProducer = { requireActivity() }
     )
 
@@ -45,6 +47,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             if (this) {
                 binding.password.setText(PrefManager.password)
                 viewModel.postLogin(PrefManager.password)
+            } else {
+                binding.password.apply {
+                    isFocusable = true
+                    isFocusableInTouchMode = true
+                    requestFocus()
+                }
+                lifecycleScope.launch {
+                    delay(150)
+                    (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                        .showSoftInput(binding.password, 0)
+                }
             }
         }
         binding.changeHost.setOnClickListener {
@@ -57,12 +70,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.loginResponse.collect { state ->
                     when (state) {
-                        LoginState.Loading -> {
+                        LoadingState.Loading -> {
 
                         }
 
-                        is LoginState.Success -> {
-                            PrefManager.stok = state.stok
+                        is LoadingState.Success -> {
+                            PrefManager.stok = state.response
+
                             val navController = findNavController()
                             navController.navigate(R.id.action_loginFragment_to_stateFragment)
 
@@ -76,8 +90,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             }
                         }
 
-                        is LoginState.Error -> {
-                            requireContext().makeToast("Login Failed: ${state.throwable.errorCode}")
+                        is LoadingState.Error -> {
+                            requireContext().makeToast("Login Failed: ${state.throwable.errorMessage}")
                         }
                     }
                 }

@@ -1,13 +1,11 @@
 package com.example.tplink.manager.logic.network
 
-import android.util.Log
 import com.example.tplink.manager.logic.exception.LoginException
-import com.example.tplink.manager.logic.model.LoginModel
-import com.example.tplink.manager.logic.model.LoginResponse
-import com.example.tplink.manager.logic.state.LoginState
+import com.example.tplink.manager.logic.model.RequestModel
+import com.example.tplink.manager.logic.model.RequestResponse
+import com.example.tplink.manager.logic.state.LoadingState
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
@@ -16,21 +14,56 @@ import kotlinx.coroutines.flow.flowOn
  */
 object Repository {
 
-    fun postLogin(data: LoginModel) = flow {
+    fun postLogin(url: String, data: RequestModel) = flow {
         try {
-            val responseRaw = Network.postLogin(data).body()?.string()
+            val responseRaw = Network.postRequest(url, data).body()?.string()
 
-            Log.i("postLogin", "postLogin: responseRaw: $responseRaw")
+           // Log.i("postLogin", "postLogin: responseRaw: $responseRaw")
 
-            val response = Gson().fromJson(responseRaw, LoginResponse::class.java)
+            val response = Gson().fromJson(responseRaw, RequestResponse::class.java)
 
             if (response.errorCode == "0" && !response.stok.isNullOrEmpty()) {
-                emit(LoginState.Success(response.stok))
+                emit(LoadingState.Success(response.stok))
             } else {
-                emit(LoginState.Error(LoginException(response.errorCode.toString())))
+                emit(LoadingState.Error(LoginException(response.errorCode.toString())))
             }
         } catch (e: Exception) {
-            emit(LoginState.Error(LoginException(e.message ?: "unknown error")))
+            emit(LoadingState.Error(LoginException(e.message ?: "unknown error")))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun getDevices(url: String, data: RequestModel) = flow {
+        try {
+            val responseRaw = Network.postRequest(url, data).body()?.string()
+
+            val response = Gson().fromJson(responseRaw, RequestResponse::class.java)
+
+            if (response.errorCode == "0") {
+                val list = response.hostsInfo?.hostInfo?.map {
+                    it?.get(it.keys.first())
+                }
+                emit(LoadingState.Success(list))
+            } else {
+                emit(LoadingState.Error(LoginException(response.errorCode.toString())))
+            }
+        } catch (e: Exception) {
+            emit(LoadingState.Error(LoginException(e.message ?: "unknown error")))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun blockDevice(url: String, data: RequestModel)= flow {
+        try {
+            val responseRaw = Network.postRequest(url, data).body()?.string()
+
+            val response = Gson().fromJson(responseRaw, RequestResponse::class.java)
+
+            if (response.errorCode == "0") {
+                emit(LoadingState.Success("0"))
+            } else {
+                emit(LoadingState.Error(LoginException(response.errorCode.toString())))
+            }
+        } catch (e: Exception) {
+            emit(LoadingState.Error(LoginException(e.message ?: "unknown error")))
         }
     }.flowOn(Dispatchers.IO)
 

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.main.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -15,17 +17,17 @@
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/login">
+            app:title="@string/tab_state">
 
             <Button
-                android:id="@+id/change_host"
+                android:id="@+id/log_out"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="20dp"
                 android:minWidth="0dp"
-                android:text="@string/change_host" />
+                android:text="@string/log_out" />
 
         </com.google.android.material.appbar.MaterialToolbar>
 
@@ -36,46 +38,30 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appBar"
-        app:passwordToggleEnabled="true">
+        app:layout_constraintTop_toBottomOf="@id/appBar">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password"
-            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:singleLine="true" />
+            android:layout_height="match_parent" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/auto_login"
+    <TextView
+        android:id="@+id/info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/auto_login"
-        app:layout_constraintEnd_toEndOf="@id/passLayout"
-        app:layout_constraintTop_toBottomOf="@id/passLayout" />
-
-    <Button
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/login"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/passLayout" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

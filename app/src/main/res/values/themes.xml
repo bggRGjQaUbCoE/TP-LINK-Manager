@@ -6,4 +6,8 @@
 
     <style name="Theme.TPLINKManager" parent="Base.Theme.TPLINKManager" />
 
+    <style name="Radius">
+        <item name="cornerSize">8dp</item>
+    </style>
+
 </resources>

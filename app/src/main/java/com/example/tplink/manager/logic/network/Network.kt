@@ -1,6 +1,6 @@
 package com.example.tplink.manager.logic.network
 
-import com.example.tplink.manager.logic.model.LoginModel
+import com.example.tplink.manager.logic.model.RequestModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,7 +15,8 @@ object Network {
 
     private val apiService = ApiServiceCreator.create<ApiService>()
 
-    suspend fun postLogin(data: LoginModel) = apiService.postLogin(data).response()
+    suspend fun postRequest(url: String, data: RequestModel) =
+        apiService.postRequest(url, data).response()
 
     private suspend fun <T> Call<T>.await(): T {
         return suspendCoroutine { continuation ->

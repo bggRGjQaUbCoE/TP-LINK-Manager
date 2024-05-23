@@ -1,14 +1,12 @@
 package com.example.tplink.manager.ui.main
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.tplink.manager.R
 import com.example.tplink.manager.databinding.ActivityMainBinding
 import com.example.tplink.manager.ui.base.BaseActivity
-import com.example.tplink.manager.ui.login.LoginFragment
 
 /**
  * Created by bggRGjQaUbCoE on 2024/5/22
@@ -24,6 +22,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     fun showNav() {
         binding.navigationView.isVisible = true
+    }
+
+    fun hideNav() {
+        binding.navigationView.isVisible = false
     }
 
 }
