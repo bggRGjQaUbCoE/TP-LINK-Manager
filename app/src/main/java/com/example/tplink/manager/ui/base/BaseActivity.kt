@@ -1,6 +1,8 @@
 package com.example.tplink.manager.ui.base
 
 import android.graphics.Color
+import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.enableEdgeToEdge
@@ -37,6 +39,10 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         super.onAttachedToWindow()
         window.statusBarColor = Color.TRANSPARENT
         window.navigationBarColor = Color.TRANSPARENT
+        if (SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isNavigationBarContrastEnforced = false
+            window.isStatusBarContrastEnforced = false
+        }
     }
 
 }

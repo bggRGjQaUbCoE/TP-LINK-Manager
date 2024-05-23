@@ -43,7 +43,7 @@ class StateViewModel : ViewModel() {
     fun blockDevice(position: Int, data: RequestModel) {
         viewModelScope.launch {
             viewModelScope.launch {
-                Repository.blockDevice("stok=$stok/ds", data).collect { result ->
+                Repository.status("stok=$stok/ds", data).collect { result ->
                     when (result) {
                         is LoadingState.Error -> _requestResponse.value = result
                         LoadingState.Loading -> {}

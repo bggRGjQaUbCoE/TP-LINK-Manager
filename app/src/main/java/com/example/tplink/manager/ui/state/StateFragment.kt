@@ -48,7 +48,7 @@ class StateFragment : BaseFragment<FragmentStateBinding>() {
 
                         is LoadingState.Error -> {
                             binding.info.text = state.throwable.errorMessage
-                            requireContext().makeToast("Login Failed: ${state.throwable.errorMessage}")
+                            requireContext().makeToast("Loading Failed: ${state.throwable.errorMessage}")
                         }
                     }
 

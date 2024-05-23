@@ -4,10 +4,30 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
-    <style name="Theme.TPLINKManager" parent="Base.Theme.TPLINKManager" />
+    <style name="Theme.TPLINKManager" parent="Base.Theme.TPLINKManager">
+        <item name="preferenceCategoryTitleTextColor">?colorPrimary</item>
+        <item name="preferenceCategoryStyle">@style/Preference.Category.Material.Mod</item>
+        <item name="switchPreferenceCompatStyle">@style/Preference.SwitchPreferenceCompat.M3</item>
+    </style>
+
+    <style name="Preference.SwitchPreferenceCompat.M3" parent="Preference.SwitchPreferenceCompat.Material">
+        <item name="android:widgetLayout">@layout/m3_preference_widget_material_switch</item>
+    </style>
+
+    <style name="Preference.Category.Material.Mod" parent="@style/Preference.Category.Material">
+        <item name="iconSpaceReserved">false</item>
+        <item name="allowDividerAbove">false</item>
+        <item name="allowDividerBelow">false</item>
+    </style>
 
     <style name="Radius">
         <item name="cornerSize">8dp</item>
+    </style>
+
+
+    <style name="AppTheme.About" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#465C67</item>
+        <item name="colorPrimaryDark">#465C67</item>
     </style>
 
 </resources>

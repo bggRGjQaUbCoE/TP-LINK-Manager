@@ -77,17 +77,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         is LoadingState.Success -> {
                             PrefManager.stok = state.response
 
-                            val navController = findNavController()
-                            navController.navigate(R.id.action_loginFragment_to_stateFragment)
+                            findNavController().navigate(R.id.action_loginFragment_to_stateFragment)
 
                             (activity as? MainActivity)?.showNav()
 
-                            with(binding.autoLogin.isChecked) {
-                                PrefManager.autoLogin = this
-                                PrefManager.password =
-                                    if (this) binding.password.text.toString()
-                                    else ""
-                            }
+                            PrefManager.autoLogin = binding.autoLogin.isChecked
+                            PrefManager.password = binding.password.text.toString()
                         }
 
                         is LoadingState.Error -> {

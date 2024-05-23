@@ -18,14 +18,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment
         binding.navigationView.setupWithNavController(navHostFragment.navController)
+
+        if (navHostFragment.navController.currentDestination?.label != "LoginFragment")
+            showNav()
+
     }
 
     fun showNav() {
         binding.navigationView.isVisible = true
-    }
-
-    fun hideNav() {
-        binding.navigationView.isVisible = false
     }
 
 }

@@ -9,8 +9,24 @@ data class RequestModel(
     val method: String,
     val login: Login? = null,
     @SerializedName("hosts_info")
-    val hostsInfo: HostsInfo? = null
+    val hostsInfo: HostsInfo? = null,
+    val system: System? = null
 ) {
+
+    data class System(
+        val table: String? = null,
+        val reboot: String? = null,
+        @SerializedName("chg_pwd")
+        val chgPwd: ChgPwd? = null,
+    )
+
+    data class ChgPwd(
+        @SerializedName("old_pwd")
+        val oldPwd: String,
+        @SerializedName("new_pwd")
+        val newPwd: String
+    )
+
     data class Login(
         val password: String
     )

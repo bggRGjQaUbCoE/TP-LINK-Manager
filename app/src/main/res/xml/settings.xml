@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/tab_setting">
+        <SwitchPreferenceCompat
+            android:icon="@drawable/outline_login_24"
+            android:key="autoLogin"
+            android:title="@string/auto_login" />
+        <Preference
+            android:icon="@drawable/outline_password_24"
+            android:key="changePwd"
+            android:title="@string/change_password" />
+        <Preference
+            android:icon="@drawable/outline_restart_alt_24"
+            android:key="reboot"
+            android:title="@string/reboot" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/about">
+        <Preference
+            android:icon="@drawable/outline_router_24"
+            android:key="about"
+            android:title="@string/app_name" />
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

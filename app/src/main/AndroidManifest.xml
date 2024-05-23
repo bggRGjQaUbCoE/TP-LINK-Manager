@@ -28,6 +28,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ui.others.AboutActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.About" />
+
     </application>
 
 </manifest>

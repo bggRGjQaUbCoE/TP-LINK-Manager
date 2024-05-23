@@ -12,7 +12,31 @@ data class RequestResponse(
     val data: Data?,
     @SerializedName("hosts_info")
     val hostsInfo: HostsInfo?,
+    val system: System?
 ) {
+
+    data class System(
+        @SerializedName("all_push_msg")
+        val allPushMsg: List<Map<String, AllPushMsg?>?>?
+    )
+
+    data class AllPushMsg(
+        val event: String?,
+        val attribute: Attribute?
+    )
+
+    data class Attribute(
+        val msgId: String?,
+        val displayType: String?,
+        val retainedMessageBar: String?,
+        val eventType: String?,
+        val content: String?,
+        val encodeType: String?,
+        val time: Long?,
+        val mac: String?,
+        val runtime: String?,
+    )
+
     data class Data(
         val code: String?,
         val time: String?,
@@ -21,7 +45,7 @@ data class RequestResponse(
 
     data class HostsInfo(
         @SerializedName("host_info")
-        val hostInfo: List<Map<String, HostInfoDetail>?>?,
+        val hostInfo: List<Map<String, HostInfoDetail?>?>?,
     )
 
     data class HostInfoDetail(

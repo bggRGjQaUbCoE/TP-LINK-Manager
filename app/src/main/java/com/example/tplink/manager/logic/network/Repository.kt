@@ -14,51 +14,43 @@ import kotlinx.coroutines.flow.flowOn
  */
 object Repository {
 
-    fun postLogin(url: String, data: RequestModel) = flow {
-        try {
-            val responseRaw = Network.postRequest(url, data).body()?.string()
+    fun postLogin(url: String, data: RequestModel) = Flow(url, data) { response ->
+        if (response.stok.isNullOrEmpty())
+            LoadingState.Error(LoginException("stok is null or empty"))
+        else
+            LoadingState.Success(response.stok)
+    }
 
-           // Log.i("postLogin", "postLogin: responseRaw: $responseRaw")
-
-            val response = Gson().fromJson(responseRaw, RequestResponse::class.java)
-
-            if (response.errorCode == "0" && !response.stok.isNullOrEmpty()) {
-                emit(LoadingState.Success(response.stok))
-            } else {
-                emit(LoadingState.Error(LoginException(response.errorCode.toString())))
-            }
-        } catch (e: Exception) {
-            emit(LoadingState.Error(LoginException(e.message ?: "unknown error")))
+    fun getDevices(url: String, data: RequestModel) = Flow(url, data) { response ->
+        val list = response.hostsInfo?.hostInfo?.map {
+            it?.get(it.keys.first())
         }
-    }.flowOn(Dispatchers.IO)
+        LoadingState.Success(list)
+    }
 
-    fun getDevices(url: String, data: RequestModel) = flow {
+    fun status(url: String, data: RequestModel) = Flow(url, data) {
+        LoadingState.Success("0")
+    }
+
+    fun getMessage(url: String, data: RequestModel) = Flow(url, data) { response ->
+        val list = response.system?.allPushMsg?.map {
+            it?.get(it.keys.first())
+        }
+        LoadingState.Success(list)
+    }
+
+    private fun <T> Flow(
+        url: String,
+        data: RequestModel,
+        block: (RequestResponse) -> LoadingState<T>
+    ) = flow {
         try {
             val responseRaw = Network.postRequest(url, data).body()?.string()
 
             val response = Gson().fromJson(responseRaw, RequestResponse::class.java)
 
             if (response.errorCode == "0") {
-                val list = response.hostsInfo?.hostInfo?.map {
-                    it?.get(it.keys.first())
-                }
-                emit(LoadingState.Success(list))
-            } else {
-                emit(LoadingState.Error(LoginException(response.errorCode.toString())))
-            }
-        } catch (e: Exception) {
-            emit(LoadingState.Error(LoginException(e.message ?: "unknown error")))
-        }
-    }.flowOn(Dispatchers.IO)
-
-    fun blockDevice(url: String, data: RequestModel)= flow {
-        try {
-            val responseRaw = Network.postRequest(url, data).body()?.string()
-
-            val response = Gson().fromJson(responseRaw, RequestResponse::class.java)
-
-            if (response.errorCode == "0") {
-                emit(LoadingState.Success("0"))
+                emit(block(response))
             } else {
                 emit(LoadingState.Error(LoginException(response.errorCode.toString())))
             }

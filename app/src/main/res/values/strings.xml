@@ -11,4 +11,11 @@
     <string name="tab_widget">Widget</string>
     <string name="tab_lan">LAN</string>
     <string name="log_out">Log Out</string>
+    <string name="message">Message</string>
+    <string name="reboot">Reboot</string>
+    <string name="change_password">Change Password</string>
+    <string name="about">About</string>
+    <string name="about_developer">Developers</string>
+    <string name="feedback">FeedBack</string>
+    <string name="about_open_source">Open Source Licenses</string>
 </resources>
