@@ -35,6 +35,18 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.tplink.manager.ui.settings.SettingsFragment"
-        android:label="@string/tab_setting" />
+        android:label="@string/tab_setting" >
+        <action
+            android:id="@+id/action_settingsFragment_to_networkFragment"
+            app:destination="@id/networkFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/networkFragment"
+        android:name="com.example.tplink.manager.ui.settings.network.NetworkFragment"
+        android:label="NetworkFragment" >
+        <action
+            android:id="@+id/action_networkFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
 
 </navigation>

@@ -39,6 +39,14 @@ object Repository {
         LoadingState.Success(list)
     }
 
+    fun getNetwork(url: String, data: RequestModel) = Flow(url, data) { response ->
+        LoadingState.Success(response.network)
+    }
+
+    fun getLEDStatus(url: String, data: RequestModel) = Flow(url, data) { response ->
+        LoadingState.Success(response.status ?: "0")
+    }
+
     private fun <T> Flow(
         url: String,
         data: RequestModel,

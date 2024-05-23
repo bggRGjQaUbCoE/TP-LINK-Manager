@@ -107,6 +107,38 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
                 }
             }
         }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.ledResponse.collect { state ->
+                    when (state) {
+                        LoadingState.Loading -> {}
+
+                        is LoadingState.Success -> {
+                            val isOn = state.response == "1"
+                            MaterialAlertDialogBuilder(requireContext()).apply {
+                                setTitle(getString(R.string.router_led))
+                                setMessage("current status: ${if (isOn) "ON" else "OFF"}")
+                                setNegativeButton(android.R.string.cancel, null)
+                                setPositiveButton(
+                                    if (isOn) "Turn off"
+                                    else "Turn on"
+                                ) { _, _ ->
+                                    viewModel.setLEDStatus(isOn)
+                                }
+                                show()
+                            }
+                            viewModel.reset()
+                        }
+
+                        is LoadingState.Error -> {
+                            requireContext().makeToast("Failed: ${state.throwable.errorMessage}")
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     private fun initView() {

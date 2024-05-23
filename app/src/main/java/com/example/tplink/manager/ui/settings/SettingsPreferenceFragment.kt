@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.widget.EditText
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceDataStore
 import androidx.preference.PreferenceFragmentCompat
@@ -55,6 +56,16 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.preferenceDataStore = SettingsPreferenceDataStore()
         setPreferencesFromResource(R.xml.settings, rootKey)
+
+        findPreference<Preference>("network")?.setOnPreferenceClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_networkFragment)
+            true
+        }
+
+        findPreference<Preference>("led")?.setOnPreferenceClickListener {
+            viewModel.getLEDStatus()
+            true
+        }
 
         findPreference<Preference>("changePwd")?.setOnPreferenceClickListener {
             val currentPwd = PrefManager.password

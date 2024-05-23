@@ -10,8 +10,27 @@ data class RequestModel(
     val login: Login? = null,
     @SerializedName("hosts_info")
     val hostsInfo: HostsInfo? = null,
-    val system: System? = null
+    val system: System? = null,
+    val network: ArrayString? = null,
+    val protocol: ArrayString? = null,
+    val wireless: ArrayString? = null,
+    val hyfi: Hyfi? = null
 ) {
+
+    data class Hyfi(
+        @SerializedName("get_led_status")
+        val getLedStatus: String? = null,
+        @SerializedName("set_led_status")
+        val setLedStatus: SetLedStatus? = null
+    )
+
+    data class SetLedStatus(
+        val status: Int
+    )
+
+    data class ArrayString(
+        val name: List<String>
+    )
 
     data class System(
         val table: String? = null,

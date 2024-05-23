@@ -1,25 +1,20 @@
 package com.example.tplink.manager.ui.state
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tplink.manager.logic.model.RequestModel
 import com.example.tplink.manager.logic.model.RequestResponse
 import com.example.tplink.manager.logic.network.Repository
 import com.example.tplink.manager.logic.state.LoadingState
-import com.example.tplink.manager.util.PrefManager
+import com.example.tplink.manager.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.net.URLDecoder
 
 /**
  * Created by bggRGjQaUbCoE on 2024/5/23
  */
-class StateViewModel : ViewModel() {
+class StateViewModel : BaseViewModel() {
 
-    var isInit = true
-
-    private val stok by lazy { URLDecoder.decode(PrefManager.stok, "UTF-8") }
     private val _requestResponse =
         MutableStateFlow<LoadingState<List<RequestResponse.HostInfoDetail?>?>>(LoadingState.Loading)
     val requestResponse = _requestResponse.asStateFlow()

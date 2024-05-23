@@ -2,6 +2,30 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="@string/tab_setting">
+        <Preference
+            android:icon="@drawable/outline_language_24"
+            android:key="network"
+            android:title="@string/network" />
+        <Preference
+            android:icon="@drawable/outline_wifi_24"
+            android:key="wifi"
+            android:title="@string/wifi" />
+        <Preference
+            android:key="lan"
+            android:title="@string/tab_lan" />
+        <Preference
+            android:key="dhcp"
+            android:title="@string/DHCP" />
+        <Preference
+            android:key="ipv6"
+            android:title="@string/ipv6" />
+        <Preference
+            android:key="nat"
+            android:title="@string/hardware_nat" />
+        <Preference
+            android:icon="@drawable/outline_tungsten_24"
+            android:key="led"
+            android:title="@string/router_led" />
         <SwitchPreferenceCompat
             android:icon="@drawable/outline_login_24"
             android:key="autoLogin"
