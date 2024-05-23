@@ -2,6 +2,9 @@ package com.example.tplink.manager.ui.main
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.tplink.manager.R
 import com.example.tplink.manager.databinding.ActivityMainBinding
 import com.example.tplink.manager.ui.base.BaseActivity
@@ -12,22 +15,15 @@ import com.example.tplink.manager.ui.login.LoginFragment
  */
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private val viewModel by viewModels<MainViewModel>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        initTrans()
-
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment
+        binding.navigationView.setupWithNavController(navHostFragment.navController)
     }
 
-    private fun initTrans() {
-        if (supportFragmentManager.findFragmentById(R.id.container) == null) {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.container, LoginFragment())
-                .commit()
-        }
+    fun showNav() {
+        binding.navigationView.isVisible = true
     }
 
 }

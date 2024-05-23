@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.tplink.manager.ui.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_stateFragment"
+            app:destination="@id/stateFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/stateFragment"
+        android:name="com.example.tplink.manager.ui.state.StateFragment"
+        android:label="@string/tab_state" />
+
+    <fragment
+        android:id="@+id/lanFragment"
+        android:name="com.example.tplink.manager.ui.lan.LanFragment"
+        android:label="@string/tab_lan" />
+
+    <fragment
+        android:id="@+id/widgetFragment"
+        android:name="com.example.tplink.manager.ui.widget.WidgetFragment"
+        android:label="@string/tab_widget" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.tplink.manager.ui.settings.SettingsFragment"
+        android:label="@string/tab_setting" />
+
+</navigation>

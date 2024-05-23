@@ -2,16 +2,18 @@ package com.example.tplink.manager.ui.login
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.tplink.manager.R
 import com.example.tplink.manager.databinding.FragmentLoginBinding
 import com.example.tplink.manager.logic.state.LoginState
 import com.example.tplink.manager.ui.base.BaseFragment
-import com.example.tplink.manager.ui.main.MainFragment
+import com.example.tplink.manager.ui.main.MainActivity
 import com.example.tplink.manager.ui.main.MainViewModel
 import com.example.tplink.manager.util.PrefManager
 import com.example.tplink.manager.util.makeToast
@@ -45,6 +47,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 viewModel.postLogin(PrefManager.password)
             }
         }
+        binding.changeHost.setOnClickListener {
+            initHost(true)
+        }
     }
 
     private fun initObserve() {
@@ -58,10 +63,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
                         is LoginState.Success -> {
                             PrefManager.stok = state.stok
-                            requireActivity().supportFragmentManager
-                                .beginTransaction()
-                                .replace(R.id.container, MainFragment())
-                                .commit()
+                            val navController = findNavController()
+                            navController.navigate(R.id.action_loginFragment_to_stateFragment)
+
+                            (activity as? MainActivity)?.showNav()
 
                             with(binding.autoLogin.isChecked) {
                                 PrefManager.autoLogin = this
@@ -86,17 +91,25 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
-    private fun initHost() {
-        val textView = AppCompatEditText(requireContext())
-        if (PrefManager.host.isEmpty()) {
-            MaterialAlertDialogBuilder(requireContext()).apply {
-                setCancelable(false)
-                setTitle(getString(R.string.set_host))
-                setView(textView)
-                setPositiveButton(android.R.string.ok) { _, _ ->
-                    PrefManager.host = textView.text.toString()
-                }
-                show()
+    private fun initHost(show: Boolean = false) {
+        with(PrefManager.host) {
+            if (show || this.isEmpty()) {
+                val editText = AppCompatEditText(requireContext())
+                if (this.isEmpty())
+                    editText.hint = "192.168.0.1"
+                else
+                    editText.setText(this)
+                MaterialAlertDialogBuilder(requireContext()).apply {
+                    setCancelable(false)
+                    setTitle(getString(R.string.set_host))
+                    setView(editText)
+                    setPositiveButton(android.R.string.ok) { _, _ ->
+                        PrefManager.host = editText.text.toString().ifEmpty { "192.168.0.1" }
+                    }
+                }.create().apply {
+                    window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+                    editText.requestFocus()
+                }.show()
             }
         }
     }

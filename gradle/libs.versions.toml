@@ -9,6 +9,7 @@ appcompat = "1.6.1"
 material = "1.12.0"
 activity = "1.9.0"
 constraintlayout = "2.1.4"
+navigation = "2.7.7"
 swiperefreshlayout = "1.1.0"
 retrofit = "2.11.0"
 preference-ktx = "1.2.1"
@@ -18,6 +19,8 @@ fragment-ktx = "1.7.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

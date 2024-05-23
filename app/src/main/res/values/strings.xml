@@ -5,4 +5,9 @@
     <string name="account">Account</string>
     <string name="password">Password</string>
     <string name="auto_login">Auto Login</string>
+    <string name="change_host">Change Host</string>
+    <string name="tab_state">State</string>
+    <string name="tab_setting">Settings</string>
+    <string name="tab_widget">Widget</string>
+    <string name="tab_lan">LAN</string>
 </resources>
