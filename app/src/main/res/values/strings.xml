@@ -20,7 +20,7 @@
     <string name="about_open_source">Open Source Licenses</string>
     <string name="router_led">Router LED</string>
     <string name="hardware_nat">Hardware NAT</string>
-    <string name="ipv6">IPV6</string>
+    <string name="ipv6">IPv6</string>
     <string name="DHCP">DHCP</string>
     <string name="wifi">WiFi</string>
     <string name="network">Network</string>

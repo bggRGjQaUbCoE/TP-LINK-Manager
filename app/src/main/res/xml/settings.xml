@@ -11,15 +11,19 @@
             android:key="wifi"
             android:title="@string/wifi" />
         <Preference
+            android:icon="@drawable/lan"
             android:key="lan"
             android:title="@string/tab_lan" />
         <Preference
+            android:icon="@drawable/dhcp"
             android:key="dhcp"
             android:title="@string/DHCP" />
         <Preference
+            android:icon="@drawable/ipv6"
             android:key="ipv6"
             android:title="@string/ipv6" />
         <Preference
+            android:icon="@drawable/nat"
             android:key="nat"
             android:title="@string/hardware_nat" />
         <Preference
