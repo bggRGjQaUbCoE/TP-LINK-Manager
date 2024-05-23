@@ -14,8 +14,25 @@ data class RequestModel(
     val network: ArrayString? = null,
     val protocol: ArrayString? = null,
     val wireless: ArrayString? = null,
-    val hyfi: Hyfi? = null
+    val hyfi: Hyfi? = null,
+    @SerializedName("plugin_config")
+    val pluginConfig: PluginConfig? = null,
+    val hnat: Hnat? = null
 ) {
+
+    data class Hnat(
+        val name: String? = null,
+        val main: Main? = null
+    )
+
+    data class Main(
+        val enable: Int
+    )
+
+    data class PluginConfig(
+        @SerializedName("get_market_plugin")
+        val getMarketPlugin: String
+    )
 
     data class Hyfi(
         @SerializedName("get_led_status")
@@ -53,7 +70,9 @@ data class RequestModel(
     data class HostsInfo(
         val table: String? = null,
         @SerializedName("set_block_flag")
-        val setBlockFlag: SetBlockFlag? = null
+        val setBlockFlag: SetBlockFlag? = null,
+        @SerializedName("get_cap_host")
+        val getCapHost: String? = null
     )
 
     data class SetBlockFlag(

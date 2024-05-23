@@ -85,6 +85,12 @@ class NetworkFragment : BaseFragment<FragmentNetworkBinding>() {
     }
 
     private fun iniView() {
+        binding.toolBar.apply {
+            setNavigationIcon(R.drawable.outline_arrow_back_24)
+            setNavigationOnClickListener {
+                findNavController().navigate(R.id.action_networkFragment_to_settingsFragment)
+            }
+        }
         binding.network.setOnClickListener {
 
         }

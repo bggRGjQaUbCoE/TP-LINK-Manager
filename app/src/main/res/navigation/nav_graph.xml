@@ -23,11 +23,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/lanFragment"
-        android:name="com.example.tplink.manager.ui.lan.LanFragment"
-        android:label="@string/tab_lan" />
-
-    <fragment
         android:id="@+id/widgetFragment"
         android:name="com.example.tplink.manager.ui.widget.WidgetFragment"
         android:label="@string/tab_widget" />

@@ -17,19 +17,7 @@
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/tab_state">
-
-            <Button
-                android:id="@+id/log_out"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="20dp"
-                android:minWidth="0dp"
-                android:text="@string/log_out" />
-
-        </com.google.android.material.appbar.MaterialToolbar>
+            app:title="@string/tab_widget" />
 
         <View
             android:layout_width="match_parent"

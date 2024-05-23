@@ -62,6 +62,11 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             true
         }
 
+        findPreference<Preference>("nat")?.setOnPreferenceClickListener {
+            viewModel.getNatStatus()
+            true
+        }
+
         findPreference<Preference>("led")?.setOnPreferenceClickListener {
             viewModel.getLEDStatus()
             true

@@ -32,6 +32,10 @@ class SettingsViewModel : BaseViewModel() {
         MutableStateFlow<LoadingState<String>>(LoadingState.Loading)
     val ledResponse = _ledResponse.asStateFlow()
 
+    private val _natResponse =
+        MutableStateFlow<LoadingState<String>>(LoadingState.Loading)
+    val natResponse = _natResponse.asStateFlow()
+
     fun getMessage() {
         val data = RequestModel(
             method = "get",
@@ -52,6 +56,7 @@ class SettingsViewModel : BaseViewModel() {
         _rebootResponse.value = LoadingState.Loading
         _pwdResponse.value = LoadingState.Loading
         _ledResponse.value = LoadingState.Loading
+        _natResponse.value = LoadingState.Loading
     }
 
     fun reboot() {
@@ -113,6 +118,39 @@ class SettingsViewModel : BaseViewModel() {
         )
         viewModelScope.launch {
             Repository.status("stok=$stok/ds", data)
+                .collect {
+                }
+        }
+    }
+
+    fun getNatStatus() {
+        val data = RequestModel(
+            method = "get",
+            hnat = RequestModel.Hnat(
+                name = "main"
+            )
+        )
+        viewModelScope.launch {
+            Repository.getNatStatus("stok=$stok/ds", data)
+                .collect { result ->
+                    _natResponse.value = result
+                }
+        }
+    }
+
+    fun setNatStatus(isOn: Boolean) {
+        val data = RequestModel(
+            method = "set",
+            hnat = RequestModel.Hnat(
+                main = RequestModel.Main(
+                    enable = if (isOn) 0 else 1
+                )
+            )
+        )
+        viewModelScope.launch {
+            Repository.status("stok=$stok/ds", data)
+                .collect {
+                }
         }
     }
 

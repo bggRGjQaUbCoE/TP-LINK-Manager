@@ -75,6 +75,14 @@ class AboutActivity : AbsAboutActivity() {
                 "https://github.com/square/retrofit"
             )
         )
+        items.add(
+            License(
+                "coil",
+                "coil-kt",
+                License.APACHE_2,
+                "https://github.com/coil-kt/coil"
+            )
+        )
     }
 
 }

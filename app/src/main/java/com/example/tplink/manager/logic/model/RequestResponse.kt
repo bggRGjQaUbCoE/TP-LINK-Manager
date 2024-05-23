@@ -1,6 +1,7 @@
 package com.example.tplink.manager.logic.model
 
 import com.google.gson.annotations.SerializedName
+import kotlin.random.Random
 
 /**
  * Created by bggRGjQaUbCoE on 2024/5/22
@@ -15,7 +16,58 @@ data class RequestResponse(
     val hostsInfo: HostsInfo?,
     val system: System?,
     val network: Network?,
+    @SerializedName("market_plugin")
+    val marketPlugin: List<Map<String, MarketPlugin?>?>?,
+    val hnat: Hnat?
 ) {
+
+    data class Hnat(
+        val main: Main?
+    )
+
+    data class Main(
+        val enable: Int?
+    )
+
+    data class MarketPlugin(
+        @SerializedName("plugin_id")
+        val pluginId: String?,
+        val name: String?,
+        val version: String?,
+        val size: String?,
+        @SerializedName("icon_url")
+        val iconUrl: String?,
+        @SerializedName("app_icon_url")
+        val appIconUrl: String?,
+        @SerializedName("local_app_icon_url")
+        val localAppIconUrl: String?,
+        @SerializedName("webzip_url")
+        val webZipUrl: String?,
+        @SerializedName("local_webzip_url")
+        val localWebZipUrl: String?,
+        @SerializedName("desc_url")
+        val descUrl: String?,
+        val tag: String?,
+        @SerializedName("update_log")
+        val updateLog: String?,
+        val author: String?,
+        @SerializedName("release_time")
+        val releaseTime: String?,
+        val property: String?,
+        @SerializedName("opera_type")
+        val operaType: String?,
+        val status: Int?,
+        @SerializedName("app_desc_url")
+        val appDescUrl: String?,
+        @SerializedName("can_update")
+        val canUpdate: String?
+    ) {
+        override fun equals(other: Any?): Boolean = false
+
+        override fun hashCode(): Int {
+            return Random.nextInt()
+        }
+    }
 
     data class Network(
         @SerializedName("wan_status")
@@ -86,7 +138,8 @@ data class RequestResponse(
         val group: String?
     )
 
-    data class HostsInfo(
+    data class
+    HostsInfo(
         @SerializedName("host_info")
         val hostInfo: List<Map<String, HostInfoDetail?>?>?,
     )
@@ -122,6 +175,12 @@ data class RequestResponse(
         val limitTime: String?,
         // @SerializedName("plan_rule")
         // val planRule: List<>?
-    )
+    ) {
+        override fun equals(other: Any?): Boolean = false
+
+        override fun hashCode(): Int {
+            return Random.nextInt()
+        }
+    }
 
 }

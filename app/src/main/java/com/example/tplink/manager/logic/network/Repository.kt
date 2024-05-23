@@ -47,6 +47,17 @@ object Repository {
         LoadingState.Success(response.status ?: "0")
     }
 
+    fun getPluginConfig(url: String, data: RequestModel) = Flow(url, data) { response ->
+        val list = response.marketPlugin?.map {
+            it?.get(it.keys.first())
+        }
+        LoadingState.Success(list)
+    }
+
+    fun getNatStatus(url: String, data: RequestModel) = Flow(url, data) { response ->
+        LoadingState.Success("${response.hnat?.main?.enable ?: 0}")
+    }
+
     private fun <T> Flow(
         url: String,
         data: RequestModel,
