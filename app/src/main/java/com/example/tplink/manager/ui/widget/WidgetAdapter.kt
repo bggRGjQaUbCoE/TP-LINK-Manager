@@ -14,20 +14,26 @@ import java.net.URLDecoder
  * Created by bggRGjQaUbCoE on 2024/5/23
  */
 class WidgetAdapter(
-    private val onClick: () -> Unit
+    private val onClick: (String, String) -> Unit // pluginId, zipUrl
 ) :
     ListAdapter<RequestResponse.MarketPlugin, WidgetAdapter.ViewHolder>(WidgetDiffUtil()) {
 
-    class ViewHolder(val binding: ItemWidgetBinding, onClick: () -> Unit) :
+    class ViewHolder(val binding: ItemWidgetBinding, onClick: (String, String) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
+
+        var id: String = ""
+        var url: String = ""
 
         init {
             itemView.setOnClickListener {
-                onClick()
+                onClick(id, url)
             }
         }
 
         fun bind(data: RequestResponse.MarketPlugin) {
+            id = data.pluginId ?: ""
+            url = data.webZipUrl ?: ""
+
             binding.title.text = URLDecoder.decode(data.name, "UTF-8")
             binding.logo.load(URLDecoder.decode(data.appIconUrl, "UTF-8")) {
                 crossfade(200)

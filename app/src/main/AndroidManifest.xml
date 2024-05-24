@@ -33,6 +33,10 @@
             android:exported="false"
             android:theme="@style/AppTheme.About" />
 
+        <activity
+            android:name=".ui.webview.WebViewActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

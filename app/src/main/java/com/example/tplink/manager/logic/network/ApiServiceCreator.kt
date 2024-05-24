@@ -25,14 +25,16 @@ object ApiServiceCreator {
         .build()
 
 
-    private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(API_BASE_URL)
+    private fun getRetrofit(host: String? = null): Retrofit = Retrofit.Builder()
+        .baseUrl(if (host.isNullOrEmpty()) API_BASE_URL else "http://$host")
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
 
-    fun <T> create(serviceClass: Class<T>): T = retrofit.create(serviceClass)
+    fun <T> create(host: String? = null, serviceClass: Class<T>): T =
+        getRetrofit(host).create(serviceClass)
 
-    inline fun <reified T> create(): T = create(T::class.java)
+    inline fun <reified T> create(host: String? = null): T = create(host, T::class.java)
+
 
 }
